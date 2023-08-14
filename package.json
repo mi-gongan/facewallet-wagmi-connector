@@ -1,6 +1,6 @@
 {
   "name": "facewallet-wagmi-connector",
-  "version": "1.0.12",
+  "version": "1.0.14",
   "description": "The package for integrating 'Face Wallet' with 'WAGMI'",
   "types": "./dist/cjs/types/index.d.ts",
   "main": "./dist/cjs/index.js",
@@ -10,10 +10,11 @@
   "type": "module",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && npm run build:cjs",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc -p ./configs/tsconfig.esm.json && mv dist/esm/index.js dist/esm/index.mjs",
     "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "publish": "npm publish --access public"
   },
   "author": "inbum",
   "license": "ISC",
