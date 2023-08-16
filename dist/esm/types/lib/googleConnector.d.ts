@@ -1,0 +1,582 @@
+import { Connector } from "wagmi";
+import { Face } from "@haechi-labs/face-sdk";
+import { Chain } from "@wagmi/core";
+export declare class GoogleConnector extends Connector {
+    static face: Face;
+    private _apiKey;
+    private _chainId;
+    readonly id = "faceWallet";
+    readonly name = "FaceWallet";
+    readonly ready = true;
+    constructor({ chains, options, apiKey, }: {
+        chains?: Chain[] | undefined;
+        options?: any;
+        apiKey: string;
+    });
+    getFace(): Promise<Face>;
+    connect(): Promise<{
+        account: `0x${string}`;
+        chain: {
+            id: number;
+            unsupported: boolean;
+        };
+        provider: {
+            account: undefined;
+            batch?: {
+                multicall?: boolean | {
+                    batchSize?: number | undefined;
+                    wait?: number | undefined;
+                } | undefined;
+            } | undefined;
+            cacheTime: number;
+            chain: Chain;
+            key: string;
+            name: string;
+            pollingInterval: number;
+            request: import("viem").EIP1193RequestFn<import("viem").PublicRpcSchema>;
+            transport: import("viem").TransportConfig<"custom", import("viem").EIP1193RequestFn>;
+            type: string;
+            uid: string;
+            call: (parameters: import("viem").CallParameters<Chain>) => Promise<import("viem").CallReturnType>;
+            createBlockFilter: () => Promise<{
+                id: `0x${string}`;
+                request: import("viem").EIP1193RequestFn<readonly [{
+                    Method: "eth_getFilterChanges";
+                    Parameters: [filterId: `0x${string}`];
+                    ReturnType: import("viem").RpcLog[] | `0x${string}`[];
+                }, {
+                    Method: "eth_getFilterLogs";
+                    Parameters: [filterId: `0x${string}`];
+                    ReturnType: import("viem").RpcLog[];
+                }, {
+                    Method: "eth_uninstallFilter";
+                    Parameters: [filterId: `0x${string}`];
+                    ReturnType: boolean;
+                }]>;
+                type: "block";
+            }>;
+            createContractEventFilter: <TAbi extends import("viem").Abi | readonly unknown[], TEventName extends string | undefined, TArgs extends import("viem/dist/types/types/contract.js").MaybeExtractEventArgsFromAbi<TAbi, TEventName> | undefined, TStrict extends boolean | undefined = undefined, TFromBlock extends bigint | import("viem").BlockTag | undefined = undefined, TToBlock extends bigint | import("viem").BlockTag | undefined = undefined>(args: import("viem").CreateContractEventFilterParameters<TAbi, TEventName, TArgs, TStrict, TFromBlock, TToBlock>) => Promise<import("viem").CreateContractEventFilterReturnType<TAbi, TEventName, TArgs, TStrict, TFromBlock, TToBlock>>;
+            createEventFilter: <TAbiEvent extends import("abitype").AbiEvent | undefined = undefined, TAbiEvents extends readonly unknown[] | readonly import("abitype").AbiEvent[] | undefined = TAbiEvent extends import("abitype").AbiEvent ? [TAbiEvent] : undefined, TStrict_1 extends boolean | undefined = undefined, TFromBlock_1 extends bigint | import("viem").BlockTag | undefined = undefined, TToBlock_1 extends bigint | import("viem").BlockTag | undefined = undefined, _EventName extends string | undefined = import("viem/dist/types/types/contract.js").MaybeAbiEventName<TAbiEvent>, _Args extends import("viem/dist/types/types/contract.js").MaybeExtractEventArgsFromAbi<TAbiEvents, _EventName> | undefined = undefined>(args?: import("viem").CreateEventFilterParameters<TAbiEvent, TAbiEvents, TStrict_1, TFromBlock_1, TToBlock_1, _EventName, _Args> | undefined) => Promise<import("viem").Filter<"event", TAbiEvents, _EventName, _Args, TStrict_1, TFromBlock_1, TToBlock_1> extends infer T ? { [K in keyof T]: import("viem").Filter<"event", TAbiEvents, _EventName, _Args, TStrict_1, TFromBlock_1, TToBlock_1>[K]; } : never>;
+            createPendingTransactionFilter: () => Promise<{
+                id: `0x${string}`;
+                request: import("viem").EIP1193RequestFn<readonly [{
+                    Method: "eth_getFilterChanges";
+                    Parameters: [filterId: `0x${string}`];
+                    ReturnType: import("viem").RpcLog[] | `0x${string}`[];
+                }, {
+                    Method: "eth_getFilterLogs";
+                    Parameters: [filterId: `0x${string}`];
+                    ReturnType: import("viem").RpcLog[];
+                }, {
+                    Method: "eth_uninstallFilter";
+                    Parameters: [filterId: `0x${string}`];
+                    ReturnType: boolean;
+                }]>;
+                type: "transaction";
+            }>;
+            estimateContractGas: <TChain extends import("viem").Chain | undefined, TAbi_1 extends import("viem").Abi | readonly unknown[], TFunctionName extends string>(args: import("viem").EstimateContractGasParameters<TAbi_1, TFunctionName, TChain, import("viem").Account | undefined>) => Promise<bigint>;
+            estimateGas: (args: import("viem").EstimateGasParameters<Chain, import("viem").Account | undefined>) => Promise<bigint>;
+            getBalance: (args: import("viem").GetBalanceParameters) => Promise<bigint>;
+            getBlock: <TIncludeTransactions extends boolean = false, TBlockTag extends import("viem").BlockTag = "latest">(args?: import("viem").GetBlockParameters<TIncludeTransactions, TBlockTag> | undefined) => Promise<import("viem").GetBlockReturnType<Chain, TIncludeTransactions, TBlockTag>>;
+            getBlockNumber: (args?: import("viem").GetBlockNumberParameters | undefined) => Promise<bigint>;
+            getBlockTransactionCount: (args?: import("viem").GetBlockTransactionCountParameters | undefined) => Promise<number>;
+            getBytecode: (args: import("viem").GetBytecodeParameters) => Promise<import("viem").GetBytecodeReturnType>;
+            getChainId: () => Promise<number>;
+            getEnsAddress: (args: {
+                blockNumber?: bigint | undefined;
+                blockTag?: import("viem").BlockTag | undefined;
+                coinType?: number | undefined;
+                name: string;
+                universalResolverAddress?: `0x${string}` | undefined;
+            }) => Promise<import("viem").GetEnsAddressReturnType>;
+            getEnsAvatar: (args: {
+                name: string;
+                blockNumber?: bigint | undefined;
+                blockTag?: import("viem").BlockTag | undefined;
+                universalResolverAddress?: `0x${string}` | undefined;
+                gatewayUrls?: import("viem").AssetGatewayUrls | undefined;
+            }) => Promise<import("viem/ens").GetEnsAvatarReturnType>;
+            getEnsName: (args: {
+                blockNumber?: bigint | undefined;
+                blockTag?: import("viem").BlockTag | undefined;
+                address: `0x${string}`;
+                universalResolverAddress?: `0x${string}` | undefined;
+            }) => Promise<import("viem").GetEnsNameReturnType>;
+            getEnsResolver: (args: {
+                blockNumber?: bigint | undefined;
+                blockTag?: import("viem").BlockTag | undefined;
+                name: string;
+                universalResolverAddress?: `0x${string}` | undefined;
+            }) => Promise<`0x${string}`>;
+            getEnsText: (args: {
+                blockNumber?: bigint | undefined;
+                blockTag?: import("viem").BlockTag | undefined;
+                name: string;
+                key: string;
+                universalResolverAddress?: `0x${string}` | undefined;
+            }) => Promise<import("viem/ens").GetEnsTextReturnType>;
+            getFeeHistory: (args: import("viem").GetFeeHistoryParameters) => Promise<import("viem").GetFeeHistoryReturnType>;
+            getFilterChanges: <TFilterType extends import("viem/dist/types/types/filter.js").FilterType, TAbi_2 extends import("viem").Abi | readonly unknown[] | undefined, TEventName_1 extends string | undefined, TStrict_2 extends boolean | undefined = undefined, TFromBlock_2 extends bigint | import("viem").BlockTag | undefined = undefined, TToBlock_2 extends bigint | import("viem").BlockTag | undefined = undefined>(args: import("viem").GetFilterChangesParameters<TFilterType, TAbi_2, TEventName_1, TStrict_2, TFromBlock_2, TToBlock_2>) => Promise<import("viem").GetFilterChangesReturnType<TFilterType, TAbi_2, TEventName_1, TStrict_2, TFromBlock_2, TToBlock_2>>;
+            getFilterLogs: <TAbi_3 extends import("viem").Abi | readonly unknown[] | undefined, TEventName_2 extends string | undefined, TStrict_3 extends boolean | undefined = undefined, TFromBlock_3 extends bigint | import("viem").BlockTag | undefined = undefined, TToBlock_3 extends bigint | import("viem").BlockTag | undefined = undefined>(args: import("viem").GetFilterLogsParameters<TAbi_3, TEventName_2, TStrict_3, TFromBlock_3, TToBlock_3>) => Promise<import("viem").GetFilterLogsReturnType<TAbi_3, TEventName_2, TStrict_3, TFromBlock_3, TToBlock_3>>;
+            getGasPrice: () => Promise<bigint>;
+            getLogs: <TAbiEvent_1 extends import("abitype").AbiEvent | undefined = undefined, TAbiEvents_1 extends readonly unknown[] | readonly import("abitype").AbiEvent[] | undefined = TAbiEvent_1 extends import("abitype").AbiEvent ? [TAbiEvent_1] : undefined, TStrict_4 extends boolean | undefined = undefined, TFromBlock_4 extends bigint | import("viem").BlockTag | undefined = undefined, TToBlock_4 extends bigint | import("viem").BlockTag | undefined = undefined>(args?: import("viem").GetLogsParameters<TAbiEvent_1, TAbiEvents_1, TStrict_4, TFromBlock_4, TToBlock_4> | undefined) => Promise<import("viem").GetLogsReturnType<TAbiEvent_1, TAbiEvents_1, TStrict_4, TFromBlock_4, TToBlock_4>>;
+            getStorageAt: (args: import("viem").GetStorageAtParameters) => Promise<import("viem").GetStorageAtReturnType>;
+            getTransaction: <TBlockTag_1 extends import("viem").BlockTag = "latest">(args: import("viem").GetTransactionParameters<TBlockTag_1>) => Promise<import("viem").GetTransactionReturnType<Chain, TBlockTag_1>>;
+            getTransactionConfirmations: (args: import("viem").GetTransactionConfirmationsParameters<Chain>) => Promise<bigint>;
+            getTransactionCount: (args: import("viem").GetTransactionCountParameters) => Promise<number>;
+            getTransactionReceipt: (args: import("viem").GetTransactionReceiptParameters) => Promise<import("viem").TransactionReceipt>;
+            multicall: <TContracts extends import("viem").ContractFunctionConfig[], TAllowFailure extends boolean = true>(args: import("viem").MulticallParameters<TContracts, TAllowFailure>) => Promise<import("viem").MulticallReturnType<TContracts, TAllowFailure>>;
+            readContract: <TAbi_4 extends import("viem").Abi | readonly unknown[], TFunctionName_1 extends string>(args: import("viem").ReadContractParameters<TAbi_4, TFunctionName_1>) => Promise<import("viem").ReadContractReturnType<TAbi_4, TFunctionName_1>>;
+            simulateContract: <TAbi_5 extends import("viem").Abi | readonly unknown[], TFunctionName_2 extends string, TChainOverride extends import("viem").Chain | undefined>(args: import("viem").SimulateContractParameters<TAbi_5, TFunctionName_2, Chain, TChainOverride>) => Promise<import("viem").SimulateContractReturnType<TAbi_5, TFunctionName_2, Chain, TChainOverride>>;
+            verifyMessage: (args: import("viem/dist/types/actions/public/verifyMessage.js").VerifyMessageParameters) => Promise<boolean>;
+            verifyTypedData: (args: import("viem/dist/types/actions/public/verifyTypedData.js").VerifyTypedDataParameters) => Promise<boolean>;
+            uninstallFilter: (args: import("viem").UninstallFilterParameters) => Promise<boolean>;
+            waitForTransactionReceipt: (args: import("viem").WaitForTransactionReceiptParameters<Chain>) => Promise<import("viem").TransactionReceipt>;
+            watchBlockNumber: (args: import("viem").WatchBlockNumberParameters) => import("viem").WatchBlockNumberReturnType;
+            watchBlocks: <TIncludeTransactions_1 extends boolean = false, TBlockTag_2 extends import("viem").BlockTag = "latest">(args: import("viem").WatchBlocksParameters<import("viem").CustomTransport, Chain, TIncludeTransactions_1, TBlockTag_2>) => import("viem").WatchBlocksReturnType;
+            watchContractEvent: <TAbi_6 extends import("viem").Abi | readonly unknown[], TEventName_3 extends string, TStrict_5 extends boolean | undefined = undefined>(args: import("viem").WatchContractEventParameters<TAbi_6, TEventName_3, TStrict_5>) => import("viem").WatchContractEventReturnType;
+            watchEvent: <TAbiEvent_2 extends import("abitype").AbiEvent | undefined = undefined, TAbiEvents_2 extends readonly unknown[] | readonly import("abitype").AbiEvent[] | undefined = TAbiEvent_2 extends import("abitype").AbiEvent ? [TAbiEvent_2] : undefined, TStrict_6 extends boolean | undefined = undefined>(args: import("viem").WatchEventParameters<TAbiEvent_2, TAbiEvents_2, TStrict_6>) => import("viem").WatchEventReturnType;
+            watchPendingTransactions: (args: import("viem").WatchPendingTransactionsParameters<import("viem").CustomTransport>) => import("viem").WatchPendingTransactionsReturnType;
+            extend: <const client extends {
+                [x: string]: unknown;
+                account?: undefined;
+                batch?: undefined;
+                cacheTime?: undefined;
+                chain?: undefined;
+                key?: undefined;
+                name?: undefined;
+                pollingInterval?: undefined;
+                request?: undefined;
+                transport?: undefined;
+                type?: undefined;
+                uid?: undefined;
+            }>(fn: (client: import("viem").Client<import("viem").CustomTransport, Chain, undefined, import("viem").PublicRpcSchema, import("viem").PublicActions<import("viem").CustomTransport, Chain>>) => client) => import("viem").Client<import("viem").CustomTransport, Chain, undefined, import("viem").PublicRpcSchema, { [K_1 in keyof client]: client[K_1]; } & import("viem").PublicActions<import("viem").CustomTransport, Chain>>;
+        };
+    }>;
+    disconnect(): Promise<void>;
+    getAccount(): Promise<`0x${string}`>;
+    getChainId(): Promise<number>;
+    getProvider(): Promise<{
+        account: undefined;
+        batch?: {
+            multicall?: boolean | {
+                batchSize?: number | undefined;
+                wait?: number | undefined;
+            } | undefined;
+        } | undefined;
+        cacheTime: number;
+        chain: Chain;
+        key: string;
+        name: string;
+        pollingInterval: number;
+        request: import("viem").EIP1193RequestFn<import("viem").PublicRpcSchema>;
+        transport: import("viem").TransportConfig<"custom", import("viem").EIP1193RequestFn>;
+        type: string;
+        uid: string;
+        call: (parameters: import("viem").CallParameters<Chain>) => Promise<import("viem").CallReturnType>;
+        createBlockFilter: () => Promise<{
+            id: `0x${string}`;
+            request: import("viem").EIP1193RequestFn<readonly [{
+                Method: "eth_getFilterChanges";
+                Parameters: [filterId: `0x${string}`];
+                ReturnType: import("viem").RpcLog[] | `0x${string}`[];
+            }, {
+                Method: "eth_getFilterLogs";
+                Parameters: [filterId: `0x${string}`];
+                ReturnType: import("viem").RpcLog[];
+            }, {
+                Method: "eth_uninstallFilter";
+                Parameters: [filterId: `0x${string}`];
+                ReturnType: boolean;
+            }]>;
+            type: "block";
+        }>;
+        createContractEventFilter: <TAbi extends import("viem").Abi | readonly unknown[], TEventName extends string | undefined, TArgs extends import("viem/dist/types/types/contract.js").MaybeExtractEventArgsFromAbi<TAbi, TEventName> | undefined, TStrict extends boolean | undefined = undefined, TFromBlock extends bigint | import("viem").BlockTag | undefined = undefined, TToBlock extends bigint | import("viem").BlockTag | undefined = undefined>(args: import("viem").CreateContractEventFilterParameters<TAbi, TEventName, TArgs, TStrict, TFromBlock, TToBlock>) => Promise<import("viem").CreateContractEventFilterReturnType<TAbi, TEventName, TArgs, TStrict, TFromBlock, TToBlock>>;
+        createEventFilter: <TAbiEvent extends import("abitype").AbiEvent | undefined = undefined, TAbiEvents extends readonly unknown[] | readonly import("abitype").AbiEvent[] | undefined = TAbiEvent extends import("abitype").AbiEvent ? [TAbiEvent] : undefined, TStrict_1 extends boolean | undefined = undefined, TFromBlock_1 extends bigint | import("viem").BlockTag | undefined = undefined, TToBlock_1 extends bigint | import("viem").BlockTag | undefined = undefined, _EventName extends string | undefined = import("viem/dist/types/types/contract.js").MaybeAbiEventName<TAbiEvent>, _Args extends import("viem/dist/types/types/contract.js").MaybeExtractEventArgsFromAbi<TAbiEvents, _EventName> | undefined = undefined>(args?: import("viem").CreateEventFilterParameters<TAbiEvent, TAbiEvents, TStrict_1, TFromBlock_1, TToBlock_1, _EventName, _Args> | undefined) => Promise<import("viem").Filter<"event", TAbiEvents, _EventName, _Args, TStrict_1, TFromBlock_1, TToBlock_1> extends infer T ? { [K in keyof T]: import("viem").Filter<"event", TAbiEvents, _EventName, _Args, TStrict_1, TFromBlock_1, TToBlock_1>[K]; } : never>;
+        createPendingTransactionFilter: () => Promise<{
+            id: `0x${string}`;
+            request: import("viem").EIP1193RequestFn<readonly [{
+                Method: "eth_getFilterChanges";
+                Parameters: [filterId: `0x${string}`];
+                ReturnType: import("viem").RpcLog[] | `0x${string}`[];
+            }, {
+                Method: "eth_getFilterLogs";
+                Parameters: [filterId: `0x${string}`];
+                ReturnType: import("viem").RpcLog[];
+            }, {
+                Method: "eth_uninstallFilter";
+                Parameters: [filterId: `0x${string}`];
+                ReturnType: boolean;
+            }]>;
+            type: "transaction";
+        }>;
+        estimateContractGas: <TChain extends import("viem").Chain | undefined, TAbi_1 extends import("viem").Abi | readonly unknown[], TFunctionName extends string>(args: import("viem").EstimateContractGasParameters<TAbi_1, TFunctionName, TChain, import("viem").Account | undefined>) => Promise<bigint>;
+        estimateGas: (args: import("viem").EstimateGasParameters<Chain, import("viem").Account | undefined>) => Promise<bigint>;
+        getBalance: (args: import("viem").GetBalanceParameters) => Promise<bigint>;
+        getBlock: <TIncludeTransactions extends boolean = false, TBlockTag extends import("viem").BlockTag = "latest">(args?: import("viem").GetBlockParameters<TIncludeTransactions, TBlockTag> | undefined) => Promise<import("viem").GetBlockReturnType<Chain, TIncludeTransactions, TBlockTag>>;
+        getBlockNumber: (args?: import("viem").GetBlockNumberParameters | undefined) => Promise<bigint>;
+        getBlockTransactionCount: (args?: import("viem").GetBlockTransactionCountParameters | undefined) => Promise<number>;
+        getBytecode: (args: import("viem").GetBytecodeParameters) => Promise<import("viem").GetBytecodeReturnType>;
+        getChainId: () => Promise<number>;
+        getEnsAddress: (args: {
+            blockNumber?: bigint | undefined;
+            blockTag?: import("viem").BlockTag | undefined;
+            coinType?: number | undefined;
+            name: string;
+            universalResolverAddress?: `0x${string}` | undefined;
+        }) => Promise<import("viem").GetEnsAddressReturnType>;
+        getEnsAvatar: (args: {
+            name: string;
+            blockNumber?: bigint | undefined;
+            blockTag?: import("viem").BlockTag | undefined;
+            universalResolverAddress?: `0x${string}` | undefined;
+            gatewayUrls?: import("viem").AssetGatewayUrls | undefined;
+        }) => Promise<import("viem/ens").GetEnsAvatarReturnType>;
+        getEnsName: (args: {
+            blockNumber?: bigint | undefined;
+            blockTag?: import("viem").BlockTag | undefined;
+            address: `0x${string}`;
+            universalResolverAddress?: `0x${string}` | undefined;
+        }) => Promise<import("viem").GetEnsNameReturnType>;
+        getEnsResolver: (args: {
+            blockNumber?: bigint | undefined;
+            blockTag?: import("viem").BlockTag | undefined;
+            name: string;
+            universalResolverAddress?: `0x${string}` | undefined;
+        }) => Promise<`0x${string}`>;
+        getEnsText: (args: {
+            blockNumber?: bigint | undefined;
+            blockTag?: import("viem").BlockTag | undefined;
+            name: string;
+            key: string;
+            universalResolverAddress?: `0x${string}` | undefined;
+        }) => Promise<import("viem/ens").GetEnsTextReturnType>;
+        getFeeHistory: (args: import("viem").GetFeeHistoryParameters) => Promise<import("viem").GetFeeHistoryReturnType>;
+        getFilterChanges: <TFilterType extends import("viem/dist/types/types/filter.js").FilterType, TAbi_2 extends import("viem").Abi | readonly unknown[] | undefined, TEventName_1 extends string | undefined, TStrict_2 extends boolean | undefined = undefined, TFromBlock_2 extends bigint | import("viem").BlockTag | undefined = undefined, TToBlock_2 extends bigint | import("viem").BlockTag | undefined = undefined>(args: import("viem").GetFilterChangesParameters<TFilterType, TAbi_2, TEventName_1, TStrict_2, TFromBlock_2, TToBlock_2>) => Promise<import("viem").GetFilterChangesReturnType<TFilterType, TAbi_2, TEventName_1, TStrict_2, TFromBlock_2, TToBlock_2>>;
+        getFilterLogs: <TAbi_3 extends import("viem").Abi | readonly unknown[] | undefined, TEventName_2 extends string | undefined, TStrict_3 extends boolean | undefined = undefined, TFromBlock_3 extends bigint | import("viem").BlockTag | undefined = undefined, TToBlock_3 extends bigint | import("viem").BlockTag | undefined = undefined>(args: import("viem").GetFilterLogsParameters<TAbi_3, TEventName_2, TStrict_3, TFromBlock_3, TToBlock_3>) => Promise<import("viem").GetFilterLogsReturnType<TAbi_3, TEventName_2, TStrict_3, TFromBlock_3, TToBlock_3>>;
+        getGasPrice: () => Promise<bigint>;
+        getLogs: <TAbiEvent_1 extends import("abitype").AbiEvent | undefined = undefined, TAbiEvents_1 extends readonly unknown[] | readonly import("abitype").AbiEvent[] | undefined = TAbiEvent_1 extends import("abitype").AbiEvent ? [TAbiEvent_1] : undefined, TStrict_4 extends boolean | undefined = undefined, TFromBlock_4 extends bigint | import("viem").BlockTag | undefined = undefined, TToBlock_4 extends bigint | import("viem").BlockTag | undefined = undefined>(args?: import("viem").GetLogsParameters<TAbiEvent_1, TAbiEvents_1, TStrict_4, TFromBlock_4, TToBlock_4> | undefined) => Promise<import("viem").GetLogsReturnType<TAbiEvent_1, TAbiEvents_1, TStrict_4, TFromBlock_4, TToBlock_4>>;
+        getStorageAt: (args: import("viem").GetStorageAtParameters) => Promise<import("viem").GetStorageAtReturnType>;
+        getTransaction: <TBlockTag_1 extends import("viem").BlockTag = "latest">(args: import("viem").GetTransactionParameters<TBlockTag_1>) => Promise<import("viem").GetTransactionReturnType<Chain, TBlockTag_1>>;
+        getTransactionConfirmations: (args: import("viem").GetTransactionConfirmationsParameters<Chain>) => Promise<bigint>;
+        getTransactionCount: (args: import("viem").GetTransactionCountParameters) => Promise<number>;
+        getTransactionReceipt: (args: import("viem").GetTransactionReceiptParameters) => Promise<import("viem").TransactionReceipt>;
+        multicall: <TContracts extends import("viem").ContractFunctionConfig[], TAllowFailure extends boolean = true>(args: import("viem").MulticallParameters<TContracts, TAllowFailure>) => Promise<import("viem").MulticallReturnType<TContracts, TAllowFailure>>;
+        readContract: <TAbi_4 extends import("viem").Abi | readonly unknown[], TFunctionName_1 extends string>(args: import("viem").ReadContractParameters<TAbi_4, TFunctionName_1>) => Promise<import("viem").ReadContractReturnType<TAbi_4, TFunctionName_1>>;
+        simulateContract: <TAbi_5 extends import("viem").Abi | readonly unknown[], TFunctionName_2 extends string, TChainOverride extends import("viem").Chain | undefined>(args: import("viem").SimulateContractParameters<TAbi_5, TFunctionName_2, Chain, TChainOverride>) => Promise<import("viem").SimulateContractReturnType<TAbi_5, TFunctionName_2, Chain, TChainOverride>>;
+        verifyMessage: (args: import("viem/dist/types/actions/public/verifyMessage.js").VerifyMessageParameters) => Promise<boolean>;
+        verifyTypedData: (args: import("viem/dist/types/actions/public/verifyTypedData.js").VerifyTypedDataParameters) => Promise<boolean>;
+        uninstallFilter: (args: import("viem").UninstallFilterParameters) => Promise<boolean>;
+        waitForTransactionReceipt: (args: import("viem").WaitForTransactionReceiptParameters<Chain>) => Promise<import("viem").TransactionReceipt>;
+        watchBlockNumber: (args: import("viem").WatchBlockNumberParameters) => import("viem").WatchBlockNumberReturnType;
+        watchBlocks: <TIncludeTransactions_1 extends boolean = false, TBlockTag_2 extends import("viem").BlockTag = "latest">(args: import("viem").WatchBlocksParameters<import("viem").CustomTransport, Chain, TIncludeTransactions_1, TBlockTag_2>) => import("viem").WatchBlocksReturnType;
+        watchContractEvent: <TAbi_6 extends import("viem").Abi | readonly unknown[], TEventName_3 extends string, TStrict_5 extends boolean | undefined = undefined>(args: import("viem").WatchContractEventParameters<TAbi_6, TEventName_3, TStrict_5>) => import("viem").WatchContractEventReturnType;
+        watchEvent: <TAbiEvent_2 extends import("abitype").AbiEvent | undefined = undefined, TAbiEvents_2 extends readonly unknown[] | readonly import("abitype").AbiEvent[] | undefined = TAbiEvent_2 extends import("abitype").AbiEvent ? [TAbiEvent_2] : undefined, TStrict_6 extends boolean | undefined = undefined>(args: import("viem").WatchEventParameters<TAbiEvent_2, TAbiEvents_2, TStrict_6>) => import("viem").WatchEventReturnType;
+        watchPendingTransactions: (args: import("viem").WatchPendingTransactionsParameters<import("viem").CustomTransport>) => import("viem").WatchPendingTransactionsReturnType;
+        extend: <const client extends {
+            [x: string]: unknown;
+            account?: undefined;
+            batch?: undefined;
+            cacheTime?: undefined;
+            chain?: undefined;
+            key?: undefined;
+            name?: undefined;
+            pollingInterval?: undefined;
+            request?: undefined;
+            transport?: undefined;
+            type?: undefined;
+            uid?: undefined;
+        }>(fn: (client: import("viem").Client<import("viem").CustomTransport, Chain, undefined, import("viem").PublicRpcSchema, import("viem").PublicActions<import("viem").CustomTransport, Chain>>) => client) => import("viem").Client<import("viem").CustomTransport, Chain, undefined, import("viem").PublicRpcSchema, { [K_1 in keyof client]: client[K_1]; } & import("viem").PublicActions<import("viem").CustomTransport, Chain>>;
+    }>;
+    getWalletClient(): Promise<{
+        account: {
+            address: `0x${string}`;
+            type: "json-rpc";
+        };
+        batch?: {
+            multicall?: boolean | {
+                batchSize?: number | undefined;
+                wait?: number | undefined;
+            } | undefined;
+        } | undefined;
+        cacheTime: number;
+        chain: Chain;
+        key: string;
+        name: string;
+        pollingInterval: number;
+        request: import("viem").EIP1193RequestFn<import("viem").WalletRpcSchema>;
+        transport: import("viem").TransportConfig<"custom", import("viem").EIP1193RequestFn>;
+        type: string;
+        uid: string;
+        addChain: (args: import("viem").AddChainParameters) => Promise<void>;
+        deployContract: <TAbi extends import("viem").Abi | readonly unknown[], TChainOverride extends import("viem").Chain | undefined>(args: import("viem").DeployContractParameters<TAbi, Chain, {
+            address: `0x${string}`;
+            type: "json-rpc";
+        }, TChainOverride>) => Promise<`0x${string}`>;
+        getAddresses: () => Promise<import("viem").GetAddressesReturnType>;
+        getChainId: () => Promise<number>;
+        getPermissions: () => Promise<import("viem").GetPermissionsReturnType>;
+        requestAddresses: () => Promise<import("viem").RequestAddressesReturnType>;
+        requestPermissions: (args: {
+            [x: string]: Record<string, any>;
+            eth_accounts: Record<string, any>;
+        }) => Promise<import("viem").RequestPermissionsReturnType>;
+        sendTransaction: <TChainOverride_1 extends import("viem").Chain | undefined>(args: import("viem").SendTransactionParameters<Chain, {
+            address: `0x${string}`;
+            type: "json-rpc";
+        }, TChainOverride_1>) => Promise<`0x${string}`>;
+        signMessage: (args: import("viem").SignMessageParameters<{
+            address: `0x${string}`;
+            type: "json-rpc";
+        }>) => Promise<`0x${string}`>;
+        signTypedData: <TTypedData extends {
+            [x: string]: readonly import("viem").TypedDataParameter[];
+            [x: `string[${string}]`]: undefined;
+            [x: `function[${string}]`]: undefined;
+            [x: `address[${string}]`]: undefined;
+            [x: `bool[${string}]`]: undefined;
+            [x: `bytes[${string}]`]: undefined;
+            [x: `bytes1[${string}]`]: undefined;
+            [x: `bytes5[${string}]`]: undefined;
+            [x: `bytes32[${string}]`]: undefined;
+            [x: `bytes31[${string}]`]: undefined;
+            [x: `bytes30[${string}]`]: undefined;
+            [x: `bytes29[${string}]`]: undefined;
+            [x: `bytes28[${string}]`]: undefined;
+            [x: `bytes27[${string}]`]: undefined;
+            [x: `bytes26[${string}]`]: undefined;
+            [x: `bytes25[${string}]`]: undefined;
+            [x: `bytes24[${string}]`]: undefined;
+            [x: `bytes23[${string}]`]: undefined;
+            [x: `bytes22[${string}]`]: undefined;
+            [x: `bytes21[${string}]`]: undefined;
+            [x: `bytes20[${string}]`]: undefined;
+            [x: `bytes19[${string}]`]: undefined;
+            [x: `bytes18[${string}]`]: undefined;
+            [x: `bytes17[${string}]`]: undefined;
+            [x: `bytes2[${string}]`]: undefined;
+            [x: `bytes16[${string}]`]: undefined;
+            [x: `bytes15[${string}]`]: undefined;
+            [x: `bytes14[${string}]`]: undefined;
+            [x: `bytes13[${string}]`]: undefined;
+            [x: `bytes12[${string}]`]: undefined;
+            [x: `bytes11[${string}]`]: undefined;
+            [x: `bytes10[${string}]`]: undefined;
+            [x: `bytes9[${string}]`]: undefined;
+            [x: `bytes8[${string}]`]: undefined;
+            [x: `bytes7[${string}]`]: undefined;
+            [x: `bytes6[${string}]`]: undefined;
+            [x: `bytes4[${string}]`]: undefined;
+            [x: `bytes3[${string}]`]: undefined;
+            [x: `int[${string}]`]: undefined;
+            [x: `int56[${string}]`]: undefined;
+            [x: `int32[${string}]`]: undefined;
+            [x: `int24[${string}]`]: undefined;
+            [x: `int16[${string}]`]: undefined;
+            [x: `int8[${string}]`]: undefined;
+            [x: `int40[${string}]`]: undefined;
+            [x: `int48[${string}]`]: undefined;
+            [x: `int64[${string}]`]: undefined;
+            [x: `int72[${string}]`]: undefined;
+            [x: `int80[${string}]`]: undefined;
+            [x: `int88[${string}]`]: undefined;
+            [x: `int96[${string}]`]: undefined;
+            [x: `int104[${string}]`]: undefined;
+            [x: `int112[${string}]`]: undefined;
+            [x: `int120[${string}]`]: undefined;
+            [x: `int128[${string}]`]: undefined;
+            [x: `int136[${string}]`]: undefined;
+            [x: `int144[${string}]`]: undefined;
+            [x: `int152[${string}]`]: undefined;
+            [x: `int160[${string}]`]: undefined;
+            [x: `int168[${string}]`]: undefined;
+            [x: `int176[${string}]`]: undefined;
+            [x: `int184[${string}]`]: undefined;
+            [x: `int192[${string}]`]: undefined;
+            [x: `int200[${string}]`]: undefined;
+            [x: `int208[${string}]`]: undefined;
+            [x: `int216[${string}]`]: undefined;
+            [x: `int224[${string}]`]: undefined;
+            [x: `int232[${string}]`]: undefined;
+            [x: `int240[${string}]`]: undefined;
+            [x: `int248[${string}]`]: undefined;
+            [x: `int256[${string}]`]: undefined;
+            [x: `uint[${string}]`]: undefined;
+            [x: `uint56[${string}]`]: undefined;
+            [x: `uint32[${string}]`]: undefined;
+            [x: `uint24[${string}]`]: undefined;
+            [x: `uint16[${string}]`]: undefined;
+            [x: `uint8[${string}]`]: undefined;
+            [x: `uint40[${string}]`]: undefined;
+            [x: `uint48[${string}]`]: undefined;
+            [x: `uint64[${string}]`]: undefined;
+            [x: `uint72[${string}]`]: undefined;
+            [x: `uint80[${string}]`]: undefined;
+            [x: `uint88[${string}]`]: undefined;
+            [x: `uint96[${string}]`]: undefined;
+            [x: `uint104[${string}]`]: undefined;
+            [x: `uint112[${string}]`]: undefined;
+            [x: `uint120[${string}]`]: undefined;
+            [x: `uint128[${string}]`]: undefined;
+            [x: `uint136[${string}]`]: undefined;
+            [x: `uint144[${string}]`]: undefined;
+            [x: `uint152[${string}]`]: undefined;
+            [x: `uint160[${string}]`]: undefined;
+            [x: `uint168[${string}]`]: undefined;
+            [x: `uint176[${string}]`]: undefined;
+            [x: `uint184[${string}]`]: undefined;
+            [x: `uint192[${string}]`]: undefined;
+            [x: `uint200[${string}]`]: undefined;
+            [x: `uint208[${string}]`]: undefined;
+            [x: `uint216[${string}]`]: undefined;
+            [x: `uint224[${string}]`]: undefined;
+            [x: `uint232[${string}]`]: undefined;
+            [x: `uint240[${string}]`]: undefined;
+            [x: `uint248[${string}]`]: undefined;
+            [x: `uint256[${string}]`]: undefined;
+            string?: undefined;
+            address?: undefined;
+            bool?: undefined;
+            bytes?: undefined;
+            bytes1?: undefined;
+            bytes5?: undefined;
+            bytes32?: undefined;
+            bytes31?: undefined;
+            bytes30?: undefined;
+            bytes29?: undefined;
+            bytes28?: undefined;
+            bytes27?: undefined;
+            bytes26?: undefined;
+            bytes25?: undefined;
+            bytes24?: undefined;
+            bytes23?: undefined;
+            bytes22?: undefined;
+            bytes21?: undefined;
+            bytes20?: undefined;
+            bytes19?: undefined;
+            bytes18?: undefined;
+            bytes17?: undefined;
+            bytes2?: undefined;
+            bytes16?: undefined;
+            bytes15?: undefined;
+            bytes14?: undefined;
+            bytes13?: undefined;
+            bytes12?: undefined;
+            bytes11?: undefined;
+            bytes10?: undefined;
+            bytes9?: undefined;
+            bytes8?: undefined;
+            bytes7?: undefined;
+            bytes6?: undefined;
+            bytes4?: undefined;
+            bytes3?: undefined;
+            int56?: undefined;
+            int32?: undefined;
+            int24?: undefined;
+            int16?: undefined;
+            int8?: undefined;
+            int40?: undefined;
+            int48?: undefined;
+            int64?: undefined;
+            int72?: undefined;
+            int80?: undefined;
+            int88?: undefined;
+            int96?: undefined;
+            int104?: undefined;
+            int112?: undefined;
+            int120?: undefined;
+            int128?: undefined;
+            int136?: undefined;
+            int144?: undefined;
+            int152?: undefined;
+            int160?: undefined;
+            int168?: undefined;
+            int176?: undefined;
+            int184?: undefined;
+            int192?: undefined;
+            int200?: undefined;
+            int208?: undefined;
+            int216?: undefined;
+            int224?: undefined;
+            int232?: undefined;
+            int240?: undefined;
+            int248?: undefined;
+            int256?: undefined;
+            uint56?: undefined;
+            uint32?: undefined;
+            uint24?: undefined;
+            uint16?: undefined;
+            uint8?: undefined;
+            uint40?: undefined;
+            uint48?: undefined;
+            uint64?: undefined;
+            uint72?: undefined;
+            uint80?: undefined;
+            uint88?: undefined;
+            uint96?: undefined;
+            uint104?: undefined;
+            uint112?: undefined;
+            uint120?: undefined;
+            uint128?: undefined;
+            uint136?: undefined;
+            uint144?: undefined;
+            uint152?: undefined;
+            uint160?: undefined;
+            uint168?: undefined;
+            uint176?: undefined;
+            uint184?: undefined;
+            uint192?: undefined;
+            uint200?: undefined;
+            uint208?: undefined;
+            uint216?: undefined;
+            uint224?: undefined;
+            uint232?: undefined;
+            uint240?: undefined;
+            uint248?: undefined;
+            uint256?: undefined;
+        } | {
+            [key: string]: unknown;
+        }, TPrimaryType extends string>(args: import("viem").SignTypedDataParameters<TTypedData, TPrimaryType, {
+            address: `0x${string}`;
+            type: "json-rpc";
+        }>) => Promise<`0x${string}`>;
+        switchChain: (args: import("viem").SwitchChainParameters) => Promise<void>;
+        watchAsset: (args: import("viem").WatchAssetParams) => Promise<boolean>;
+        writeContract: <TAbi_1 extends import("viem").Abi | readonly unknown[], TFunctionName extends string, TChainOverride_2 extends import("viem").Chain | undefined>(args: import("viem").WriteContractParameters<TAbi_1, TFunctionName, Chain, {
+            address: `0x${string}`;
+            type: "json-rpc";
+        }, TChainOverride_2>) => Promise<`0x${string}`>;
+        extend: <const client extends {
+            [x: string]: unknown;
+            account?: undefined;
+            batch?: undefined;
+            cacheTime?: undefined;
+            chain?: undefined;
+            key?: undefined;
+            name?: undefined;
+            pollingInterval?: undefined;
+            request?: undefined;
+            transport?: undefined;
+            type?: undefined;
+            uid?: undefined;
+        }>(fn: (client: import("viem").Client<import("viem").CustomTransport, Chain, {
+            address: `0x${string}`;
+            type: "json-rpc";
+        }, import("viem").WalletRpcSchema, import("viem").WalletActions<Chain, {
+            address: `0x${string}`;
+            type: "json-rpc";
+        }>>) => client) => import("viem").Client<import("viem").CustomTransport, Chain, {
+            address: `0x${string}`;
+            type: "json-rpc";
+        }, import("viem").WalletRpcSchema, { [K in keyof client]: client[K]; } & import("viem").WalletActions<Chain, {
+            address: `0x${string}`;
+            type: "json-rpc";
+        }>>;
+    }>;
+    isAuthorized(): Promise<boolean>;
+    switchChain(chainId: any): Promise<Chain>;
+    protected onAccountsChanged(accounts: `0x${string}`[]): void;
+    protected onChainChanged(chainId: string | number): void;
+    protected onDisconnect(): void;
+}
+//# sourceMappingURL=googleConnector.d.ts.map

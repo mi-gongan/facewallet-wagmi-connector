@@ -1,6 +1,6 @@
 {
-  "name": "face-wagmi-connector",
-  "version": "1.0.0",
+  "name": "facewallet-wagmi-connector",
+  "version": "1.1.5",
   "description": "The package for integrating 'Face Wallet' with 'WAGMI'",
   "types": "./dist/cjs/types/index.d.ts",
   "main": "./dist/cjs/index.js",
@@ -13,8 +13,8 @@
     "build": "npm run clean && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc -p ./configs/tsconfig.esm.json && mv dist/esm/index.js dist/esm/index.mjs",
     "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
-    "prepack": "npm run build",
-    "publish": "npm publish --access public"
+    "prefetch": "npm run build",
+    "publish": "npm publish"
   },
   "author": "inbum",
   "license": "ISC",
@@ -38,5 +38,30 @@
         "default": "./dist/cjs/index.js"
       }
     }
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mi-gongan/face-wagmi-connector"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "eth",
+    "ethereum",
+    "dapps",
+    "wallet",
+    "web3",
+    "abi"
+  ],
+  "_moduleAliases": {
+    "@": "./src"
   }
 }

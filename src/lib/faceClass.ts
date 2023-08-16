@@ -1,5 +1,5 @@
 import { Face } from "@haechi-labs/face-sdk";
-import { convertChainIdToName } from "../utils/network";
+import { convertChainIdToName } from "../utils/network.js";
 
 export class FaceClass {
   static face: Face;

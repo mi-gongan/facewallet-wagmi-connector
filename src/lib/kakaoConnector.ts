@@ -1,9 +1,13 @@
 import { Connector } from "wagmi";
 import { Face, Network } from "@haechi-labs/face-sdk";
 import { Chain } from "@wagmi/core";
-import { FaceClass } from "./faceClass";
-import { createWalletClient, custom, getAddress } from "viem";
-import { createPublicClient } from "viem";
+import { FaceClass } from "./faceClass.js";
+import {
+  createWalletClient,
+  custom,
+  getAddress,
+  createPublicClient,
+} from "viem";
 
 export class KakaoConnector extends Connector {
   static face: Face;
