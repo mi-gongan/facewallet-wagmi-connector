@@ -2,7 +2,7 @@ import type { AppProps } from "next/app";
 import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
-import { GoogleConnector, KakaoConnector } from "face-wagmi-connector";
+import { GoogleConnector, KakaoConnector } from "facewallet-wagmi-connector";
 import { ChakraProvider } from "@chakra-ui/react";
 import { polygonMumbai } from "@wagmi/core/chains";
 

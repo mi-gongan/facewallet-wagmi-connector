@@ -19,7 +19,7 @@
     "@wagmi/core": "^1.3.9",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.16",
-    "face-wagmi-connector": "^1.1.5",
+    "facewallet-wagmi-connector": "^1.1.5",
     "framer-motion": "^10.15.2",
     "next": "13.4.16",
     "react": "18.2.0",
