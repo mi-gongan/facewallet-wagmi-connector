@@ -19,37 +19,41 @@ npm install viem wagmi @wagmi/core facewallet-wagmi-connector
 .env에 NEXT_PUBLIC_FACE_API_KEY 입력
 (https://dashboard.facewallet.xyz에서 발급)
 
-.env
+### .env
 
 ```
 NEXT_PUBLIC_FACE_API_KEY=""
 ```
 
-pages/\_app.tsx
+### pages/\_app.tsx
 
 ```
 const faceApiKey = process.env.NEXT_PUBLIC_FACE_API_KEY || "";
 
 const config = createConfig({
-autoConnect: true,
-publicClient,
-webSocketPublicClient,
-connectors: [
-new MetaMaskConnector({ chains }),
-new KakaoConnector({
-chains,
-options: { chainId },
-apiKey: faceApiKey,
-}),
-new GoogleConnector({
-chains,
-options: { chainId },
-apiKey: faceApiKey,
-}),
-],
+    autoConnect: true,
+    publicClient,
+    webSocketPublicClient,
+    connectors: [
+        new MetaMaskConnector({ chains }),
+        new KakaoConnector({
+            chains,
+            options: { chainId },
+            apiKey: faceApiKey,
+        }),
+        new GoogleConnector({
+            chains,
+            options: { chainId },
+            apiKey: faceApiKey,
+        }),
+    ],
 });
 
 ```
+
+## demo url
+
+https://face-wagmi-connector.vercel.app/
 
 ## face wallet document
 
