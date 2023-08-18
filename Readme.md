@@ -17,7 +17,7 @@ npm install viem wagmi @wagmi/core facewallet-wagmi-connector
 ### Wagmi 연결
 
 .env에 NEXT_PUBLIC_FACE_API_KEY 입력
-(https://dashboard.facewallet.xyz에서 발급)
+(https://dashboard.facewallet.xyz 에서 발급)
 
 ### .env
 
